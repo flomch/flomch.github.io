@@ -1,1 +1,8 @@
 theme: jekyll-theme-minimal
+
+title: Flora Chen # my name
+logo: "/images/profile-pic.jpg?raw=true" # your photo (or logo) here
+description: > # your text below (remove <br> elements if you don't need line breaks)
+  Hi there! I'm Flora, a MS Data Science student at University of San Francisco.
+  <br><br>
+  <a href="https://www.linkedin.com/in/floramchen">View My LinkedIn Profile</a> 
