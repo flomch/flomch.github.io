@@ -1,5 +1,5 @@
 # Flora's Data Science Portfolio
-Hi there! I'm Flora, a MS Data Science student at University of San Francisco.
+Hi there! I'm Flora, a MS Data Science student at University of San Francisco.   
 
 # Projects
    
