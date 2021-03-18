@@ -39,7 +39,7 @@ Ransomware is a type of malicious software that locks up a user’s computer sys
 
 But not all is lost! Bitcoin transactions are public and permanently stored – this leaves plenty of data for a machine learning intervention.
 
- * Queue hopeful music *
+ *Queue hopeful music*
 
 Hence, my research prompt: can I use machine learning to tell whether a ransomware was behind a bitcoin transaction?
 
