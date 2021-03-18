@@ -1,6 +1,6 @@
 # Projects
    
-## [Oh gosh! Is that a bitcoin heist?](bitcoin_proj)
+## [Oh gosh! Is that a bitcoin heist?](bitcoin)
 Can I use machine learning to tell whether a ransomware was behind a bitcoin transaction?
 
 ## Traffic, more traffic, and surprise! 
