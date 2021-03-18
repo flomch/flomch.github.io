@@ -1,5 +1,36 @@
+<!-- Output copied to clipboard! -->
+
+<!-----
+NEW: Check the "Suppress top comment" option to remove this info from the output.
+
+Conversion time: 0.905 seconds.
+
+
+Using this Markdown file:
+
+1. Paste this output into your source file.
+2. See the notes and action items below regarding this conversion run.
+3. Check the rendered output (headings, lists, code blocks, tables) for proper
+   formatting and use a linkchecker before you publish this page.
+
+Conversion notes:
+
+* Docs to Markdown version 1.0β29
+* Thu Mar 18 2021 15:45:23 GMT-0700 (PDT)
+* Source doc: Oh gosh
+* Tables are currently converted to HTML tables.
+----->
+
+
 
 # Oh gosh! Is that a bitcoin heist?
+
+Skills showcased: 
+
+
+
+*   Scikit-Learn Pipeline to automate preprocessing and model training. 
+*   Model selection & tuning with grid search
 
 
 ## Introduction
@@ -15,9 +46,7 @@ Hence, my research prompt: can I use machine learning to tell whether a ransomwa
 
 ## About the data
 
-I used this dataset contributed to the UCI Machine Learning Repository.
-
-[https://archive.ics.uci.edu/ml/datasets/BitcoinHeistRansomwareAddressDataset](https://archive.ics.uci.edu/ml/datasets/BitcoinHeistRansomwareAddressDataset)
+I used this [dataset](https://archive.ics.uci.edu/ml/datasets/BitcoinHeistRansomwareAddressDataset) contributed to the UCI Machine Learning Repository.
 
 The data contains bitcoin transactions above a certain threshold amount collected over a 24 hour period. 
 
@@ -31,11 +60,7 @@ I’ve taken some steps to simplify the data I will working with:
 
 ## EDA
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
-
+&lt;img src="../images/bitcoin/corr-matrix.png" alt="Correlation Matrix"  class=”center”>
 
 Right off the bat, I saw something less than desirable. Feature variables were all minimally correlated with the target variable, _label_. Nevermind that, the project’s gotta go on.
 
@@ -75,16 +100,118 @@ Lastly, there were quite a few right skewed features, but a quick log transforma
 
 ## Preprocessing
 
-The preprocessing pipeline (built with scikit-learn)  was kept nice and simple, as the data was already quite clean. Here are the steps:
+The preprocessing pipeline (built with scikit-learn) was kept nice and simple, as the data was already quite clean. Here are the steps:
 
 
 
-1. Data imputation. Missing categorical values were replaced with the string ‘Missing’ , and missing numeric ones were replaced with an anomalously larget number -99999. 
+1. **Data imputation.** Missing categorical values were replaced with the string ‘Missing’ , and missing numeric ones were replaced with an anomalously large number -99999. This method works poorly for regression models, but I let it slide because my focus was on tree models and there weren’t actually any null data.
+2. **Log transformation.** I defined a custom function class using FunctionTransfomer.
+3. **Standardardization.** Enables faster training and higher accuracy on regression models.
 
-Skills showcased 
 
-Scikit-learn Pipeline
+## Model Selection & Tuning
 
-Model selection & tuning 
+I divided this stage into two steps. This was needed due to limited computation power. Since the dataset was **highly imbalanced**, I thought models likely needed some form of resampling to perform well. However, resampling techniques, such as SMOTE, are often time-consuming. Hence, I can only afford to try it on a select few candidate models, along with their optimal hyperparameters. 
 
-Using the **scikit-learn Pipeline **function, we can **automate** and combine the data preprocessing, model comparison and tuning into one workflow.
+
+### Evaluation Metrics
+
+The classic quartet: **F1, ROC/AUC, precision, recall** were used. 
+
+Here’s what recall & precision meant in the context of my dataset:
+
+
+
+*   Recall: of the true ransomeware accounts, how many did the model identify.
+*   Precision: of the ransomware accounts the model has identified, how many were actually true.
+
+This task required a fine balance between precision and recall. On the one hand, we don't want to falsely predict many white accounts as ransomeware; this would damage trust. But on the other hand, we don't want to miss too many ransomware accounts; this would negate the point of crime monitoring. 
+
+Hence, on top of examining precision/recall individually, F1 and ROC/AUC provide a more balanced overview of the model's performance.
+
+
+### Step 1: Random Grid Search
+
+In this step, I executed random grid search on hyperparameters for 3 types of models:
+
+
+
+*   **Logistic Regression**
+*   **Random Forest**
+*   **Extra Tree Forest **
+
+**20 random model searches**, coupled with 5-fold cross validation, were conducted, amounting to a total of 100 model trainings. 
+
+The top 5 models were determined using the models’ mean rankings. These were then fed into step 2 for further tuning.
+
+
+### Step 2: Parameter Grid Search
+
+The top 5 candidate models were then exhaustively searched against an upsampling technique, **SMOTE**, and a downsampling technique, **Random Under Sampler**, using parameter grid search. This amounted to 10 different models.
+
+&lt;img src="../images/bitcoin/metric.png" alt="Evaluation Metric"  class=”center”>
+
+Evident in the metrics chart, the old rivalry between precision and recall is alive and well. I either got very good recall in exchange for terrible precision, or I got mediocre recall for mediocre precision. Overall, this suggested considerable overlap between the distributions of white and ransomware accounts. 
+
+After balancing out rankings for each metrics, model 5 came out as the winner!
+
+
+## Final model testing
+
+This what my final model pipeline looked like:
+
+
+
+1. Data preprocessing
+2. SMOTE to artificially create more minority class in the training set
+3. RandomForestClassifier(min_samples_leaf=7, n_estimators=30)
+
+And the test set results:
+
+&lt;img src="../images/bitcoin/conf-matrix.png" alt="Confusion Matrix"  class=”center”>
+
+
+<table>
+  <tr>
+   <td><strong>Metric</strong>
+   </td>
+   <td><strong>Score</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>Recall
+   </td>
+   <td>0.37
+   </td>
+  </tr>
+  <tr>
+   <td>Precision
+   </td>
+   <td>0.45
+   </td>
+  </tr>
+  <tr>
+   <td>F1
+   </td>
+   <td>0.41
+   </td>
+  </tr>
+  <tr>
+   <td>ROC/AUC
+   </td>
+   <td>0.92
+   </td>
+  </tr>
+</table>
+
+
+The model performed pretty much within expectations. The F1 score clearly demonstrated the tradeoff between precision and recall. This is further evidence that white and ransomware transactions have strongly overlapping characteristics.
+
+In terms of feature importance, the permutation test deemed neighbors to be the most important. Surprisingly two of the researcher-defined features used to profile transaction behaviors, length and count, showed negative impact to model performance. 
+
+&lt;img src="../images/bitcoin/feature-imp.png" alt="Feature Importance"  class=”center”>
+
+
+## Summary
+
+Working with real-world data is, no doubt, hard. Despite making hyperparameter adjustments to ensure model generality, my final model was only able to achieve a mediocre F1 score of 0.41. A possible future step would be to explore deep learning models, which would make better use of the large data size; after all, I only used 20% of given data for this project.
