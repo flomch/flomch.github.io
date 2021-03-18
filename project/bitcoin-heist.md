@@ -60,7 +60,7 @@ I’ve taken some steps to simplify the data I will working with:
 
 ## EDA
 
-<img src="/../images/bitcoin/corr-matrix.png" alt="Correlation Matrix"  class=”center”>
+<img src="../images/bitcoin/corr-matrix.png" alt="Correlation Matrix"  class=”center”>
 
 Right off the bat, I saw something less than desirable. Feature variables were all minimally correlated with the target variable, _label_. Nevermind that, the project’s gotta go on.
 
