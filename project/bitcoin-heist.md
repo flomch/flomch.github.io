@@ -114,7 +114,7 @@ In this step, I executed random grid search on hyperparameters for 3 types of mo
 
 *   **Logistic Regression**
 *   **Random Forest**
-*   **Extra Tree Forest **
+*   **Extra Tree Forest**
 
 **20 random model searches**, coupled with 5-fold cross validation, were conducted, amounting to a total of 100 model trainings. 
 
