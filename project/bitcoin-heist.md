@@ -4,7 +4,7 @@ Skills showcased:
 
 
 
-*   Scikit-Learn Pipeline to automate preprocessing and model training. 
+*   Scikit-Learn Pipeline to automate preprocessing and model training
 *   Model selection & tuning with grid search
 
 
@@ -186,11 +186,11 @@ And the test set results:
 
 The model performed pretty much within expectations. The F1 score clearly demonstrated the tradeoff between precision and recall. This is further evidence that white and ransomware transactions have strongly overlapping characteristics.
 
-In terms of feature importance, the permutation test deemed neighbors to be the most important. Surprisingly two of the researcher-defined features used to profile transaction behaviors, length and count, showed negative impact to model performance. 
+In terms of feature importance, the permutation test deemed neighbors to be the most important. Surprisingly, two of the researcher-defined features used to profile transaction behaviors, length and count, showed negative impact to model performance. 
 
 <!-- <img src="../images/bitcoin/feature-imp.png" alt="Feature Importance"  class=”center”/> -->
 ![Feature Importance](../images/bitcoin/feature-imp.png)
 
 ## Summary
 
-Working with real-world data is, no doubt, hard. Despite making hyperparameter adjustments to ensure model generality, my final model was only able to achieve a mediocre F1 score of 0.41. A possible future step would be to explore deep learning models, which would make better use of the large data size; after all, I only used 20% of given data for this project.
+Working with real-world data is, no doubt, hard. Despite making hyperparameter adjustments to ensure model generality, my final model was only able to achieve a mediocre F1 score of 0.41. A possible future step would be to explore deep learning models, which would make better use of the large data size; after all, I only used 20% of the given data for this project.
