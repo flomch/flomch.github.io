@@ -35,7 +35,8 @@ I’ve taken some steps to simplify the data I will working with:
 
 ## EDA
 
-<img src="../images/bitcoin/corr-matrix.png" alt="Correlation Matrix"  class=”center”/>
+<!-- <img src="../images/bitcoin/corr-matrix.png" alt="Correlation Matrix"  class=”center”/> -->
+![Correlation Matrix](../images/bitcoin/corr-matrix.png)
 
 Right off the bat, I saw something less than desirable. Feature variables were all minimally correlated with the target variable, _label_. Nevermind that, the project’s gotta go on.
 
@@ -124,7 +125,9 @@ The top 5 models were determined using the models’ mean rankings. These were t
 
 The top 5 candidate models were then exhaustively searched against an upsampling technique, **SMOTE**, and a downsampling technique, **Random Under Sampler**, using parameter grid search. This amounted to 10 different models.
 
-<img src="../images/bitcoin/metric.png" alt="Evaluation Metric"  class=”center”/>
+<!-- <img src="../images/bitcoin/metric.png" alt="Evaluation Metric"  class=”center”/> -->
+![Evaluation Metric](../images/bitcoin/metric.png)
+
 
 Evident in the metrics chart, the old rivalry between precision and recall is alive and well. I either got very good recall in exchange for terrible precision, or I got mediocre recall for mediocre precision. Overall, this suggested considerable overlap between the distributions of white and ransomware accounts. 
 
@@ -143,7 +146,8 @@ This what my final model pipeline looked like:
 
 And the test set results:
 
-<img src="../images/bitcoin/conf-matrix.png" alt="Confusion Matrix"  class=”center”/>
+<!-- <img src="../images/bitcoin/conf-matrix.png" alt="Confusion Matrix"  class=”center”/> -->
+![Confusion Matrix](../images/bitcoin/conf-matrix.png)
 
 
 <table>
@@ -184,8 +188,8 @@ The model performed pretty much within expectations. The F1 score clearly demons
 
 In terms of feature importance, the permutation test deemed neighbors to be the most important. Surprisingly two of the researcher-defined features used to profile transaction behaviors, length and count, showed negative impact to model performance. 
 
-<img src="../images/bitcoin/feature-imp.png" alt="Feature Importance"  class=”center”/>
-
+<!-- <img src="../images/bitcoin/feature-imp.png" alt="Feature Importance"  class=”center”/> -->
+![Feature Importance](../images/bitcoin/feature-imp.png)
 
 ## Summary
 
