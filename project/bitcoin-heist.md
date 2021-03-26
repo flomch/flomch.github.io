@@ -1,11 +1,11 @@
 # Oh gosh! Is that a bitcoin heist?
 
+[Find code repo here](https://github.com/flomch/bitcoin-heist-detection)
+
 Skills showcased: 
 
-
-
 *   Scikit-Learn Pipeline to automate preprocessing and model training
-*   Model selection & tuning with grid search
+*   Model selection & tuning with grid search  
 
 
 ## Introduction
